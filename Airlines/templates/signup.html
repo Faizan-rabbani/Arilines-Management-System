@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    /* General Heading Styling */
+    h2 {
+        text-align: center;
+        color: #005f87;
+        font-size: 28px;
+        margin-bottom: 20px;
+    }
+
+    /* Form Styling */
+    form {
+        width: 100%;
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Form Fields Styling */
+    form input,
+    form button {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 16px;
+        box-sizing: border-box;
+    }
+
+    /* Focus State for Form Fields */
+    form input:focus,
+    form button:focus {
+        outline: none;
+        border-color: #005f87;
+        box-shadow: 0 0 5px rgba(0, 95, 135, 0.3);
+    }
+
+    /* Submit Button Styling */
+    form button {
+        background-color: #005f87;
+        color: white;
+        font-weight: bold;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    form button:hover {
+        background-color: #003f5f;
+    }
+
+    /* Link Styling */
+    p {
+        text-align: center;
+    }
+
+    p a {
+        color: #005f87;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    p a:hover {
+        color: #003f5f;
+    }
+
+    /* Responsive Design */
+    @media screen and (max-width: 768px) {
+        h2 {
+            font-size: 24px;
+        }
+
+        form {
+            padding: 15px;
+        }
+
+        form input,
+        form button {
+            font-size: 14px;
+            padding: 8px;
+        }
+    }
+</style>
+
+  <h2>Sign Up</h2>
+  <form method="post">
+    {% csrf_token %}
+    
+    {% for field in form %}
+      <div class="form-field">
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label> 
+        {{ field }}  
+      </div>
+    {% endfor %}
+
+    <button type="submit">Sign Up</button>
+  </form>
+
+  <p>Already have an account? <a href="{% url 'login' %}">Log In</a></p>
+{% endblock %}
+
+

@@ -1,0 +1,221 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    /* General Styling */
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    h2 {
+        text-align: center;
+        color: #005f87;
+        font-size: 36px;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    p {
+        text-align: center;
+        color: rgb(26, 16, 16);
+        font-size: 18px;
+    }
+
+    /* Hero Section */
+    .hero {
+        background-image: url('https://www.shutterstock.com/image-vector/small-propeller-airplane-towing-clear-260nw-2039454101.jpg');
+        /* Replace with a real airline banner image */
+        background-size: cover;
+        background-position: center;
+        color: white;
+        text-align: center;
+        padding: 100px 86px;
+        margin-top: 20px;
+    }
+
+    .hero h1 {
+        font-size: 48px;
+        text-align: right;
+        color: black;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    .hero p {
+        font-size: 20px;
+        margin-bottom: 30px;
+        color: rgb(12, 7, 7);
+        text-align: right;
+    }
+
+    .cta-button {
+        display: inline-block;
+        background-color: #3ac3fe;
+        color: #fff;
+        padding: 15px 40px;
+        font-size: 20px;
+        font-weight: bold;
+        text-decoration: none;
+        border-radius: 8px;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+        margin-top: 20px;
+    }
+
+    .cta-button:hover {
+        background-color: #005f87;
+        transform: translateY(-3px);
+        box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Popular Destinations */
+    .destinations {
+        max-width: 1200px;
+        margin: 40px auto;
+        padding: 0 20px;
+        text-align: center;
+    }
+
+    .destinations .destination-card {
+        display: inline-block;
+        width: 30%;
+        margin: 10px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .destinations img {
+        width: 100%;
+        /* Maintain responsiveness */
+        height: 300px;
+        /* Set a fixed height */
+        object-fit: cover;
+        /* Ensure images are cropped properly without distortion */
+        border-radius: 10px;
+        /* Optional: for consistent rounded corners */
+    }
+
+    .destinations .destination-card h3 {
+        padding: 10px;
+        background-color: #005f87;
+        color: white;
+        margin: 0;
+    }
+
+    /* Services Section */
+    .services {
+        background-color: #f9f9f9;
+        padding: 40px 20px;
+    }
+
+    .services h2 {
+        margin-bottom: 20px;
+    }
+
+    .services .service {
+        display: inline-block;
+        width: 30%;
+        margin: 10px;
+        text-align: center;
+    }
+
+    .services .service img {
+        width: 100px;
+        height: 80px;
+    }
+
+    .services .service p {
+        margin-top: 10px;
+    }
+
+    /* Newsletter Section */
+    .newsletter {
+        background-color: #005f87;
+        color: white;
+        text-align: center;
+        padding: -10px 20px;
+    }
+
+    .newsletter input[type="email"] {
+        padding: 10px;
+        width: 250px;
+        margin-right: 10px;
+        border: none;
+        border-radius: 5px;
+    }
+
+    .newsletter button {
+        color: white;
+        font-size: 20px;
+        text-decoration: none;
+        padding: 8px 18px;
+        border-radius: 5px;
+        background-color: #3ac3fe;
+        /* Base button color */
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .newsletter button:hover {
+        background-color: #003f5f;
+        transform: scale(1.05);
+    }
+</style>
+
+<!-- Hero Section -->
+<div class="hero">
+    <h1>Welcome to Wonderkid Airlines</h1>
+    <p>Experience the joy of flying with safety and comfort. Book your next journey today!</p>
+    <a href="{% url 'add_passenger' %}" class="cta-button">Make a Booking</a>
+</div>
+<!-- Popular Destinations Section -->
+<div class="destinations">
+    <h2>Popular Destinations</h2>
+    <div class="destination-card">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/View_of_Empire_State_Building_from_Rockefeller_Center_New_York_City_dllu.jpg/800px-View_of_Empire_State_Building_from_Rockefeller_Center_New_York_City_dllu.jpg"
+            alt="Destination 1">
+        <h3>New York</h3>
+    </div>
+    <div class="destination-card">
+        <img src="https://149990825.v2.pressablecdn.com/wp-content/uploads/2023/09/Paris1.jpg" alt="Destination 2">
+        <h3>Paris</h3>
+    </div>
+    <div class="destination-card">
+        <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1b/4b/5d/10/caption.jpg?w=1400&h=1400&s=1&cx=1005&cy=690&chk=v1_2ed86f729380ea073850"
+            alt="Destination 3">
+        <h3>Tokyo</h3>
+    </div>
+</div>
+
+<!-- Services Section -->
+<div class="services">
+    <h2>Our Services</h2>
+    <div class="service">
+        <img src="https://media.cnn.com/api/v1/images/stellar/prod/171106160130-singapore-airlines-inflight-entertainment.jpg?q=w_1600,h_900,x_0,y_0,c_fill"
+            alt="Service 1">
+        <p>In-flight Entertainment</p>
+    </div>
+    <div class="service">
+        <img src="https://www.itilite.com/wp-content/uploads/2024/01/Booking-Flexible-Flight-Tickets-5-Useful-Tips-for-Corporate-Travelers-1024x536-1.jpeg"
+            alt="Service 2">
+        <p>Flexible Ticketing</p>
+    </div>
+    <div class="service">
+        <img src="https://img.freepik.com/premium-vector/v23006151006300-02_446246-240.jpg?semt=ais_hybrid"
+            alt="Service 3">
+        <p>24/7 Customer Support</p>
+    </div>
+</div>
+
+<!-- Newsletter Section -->
+<div class="newsletter">
+    <h2>Subscribe to Our Newsletter</h2>
+    <p>Stay updated with the latest offers and announcements.</p>
+    <form>
+        <input type="email" placeholder="Enter your email" required>
+        <button type="submit">Subscribe</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    /* Profile Container Styling */
+    .profile-container {
+        max-width: 1200px;
+        margin: 40px auto;
+        padding: 20px;
+        text-align: center;
+        background-color: #f9f9f9; /* Light background for contrast */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+    }
+
+    .profile-container h2 {
+        font-size: 36px;
+        color: #005f87;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    .profile-container p {
+        font-size: 18px;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    .profile-container .btn {
+        display: inline-block;
+        background-color: #3ac3fe;
+        color: white;
+        padding: 12px 30px;
+        font-size: 18px;
+        font-weight: bold;
+        text-decoration: none;
+        border-radius: 8px;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .profile-container .btn:hover {
+        background-color: #005f87;
+        transform: translateY(-3px);
+        box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Responsive Design */
+    @media screen and (max-width: 768px) {
+        .profile-container {
+            padding: 15px;
+        }
+
+        .profile-container h2 {
+            font-size: 28px;
+        }
+
+        .profile-container p {
+            font-size: 16px;
+        }
+
+        .profile-container .btn {
+            font-size: 16px;
+            padding: 10px 20px;
+        }
+    }
+</style>
+
+<div class="profile-container">
+    <h2>Welcome to Your Profile!</h2>
+    <p>Manage your personal information and preferences here.</p>
+    <a href="{% url 'edit_profile' %}" class="btn">Edit Profile</a>
+</div>
+{% endblock %}

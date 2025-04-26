@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airline Management System</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            min-height: 100vh;
+            /* Ensure the body takes at least the full height of the screen */
+            display: flex;
+            flex-direction: column;
+            /* Stack content vertically */
+        }
+
+        /* Header Styles */
+        header {
+            background-color: #005f87;
+            padding: 10px 20px;
+            color: white;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 25px;
+            margin: 0;
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        header nav {
+    display: flex;
+    justify-content: center; /* Center the nav-center content */
+    align-items: center;
+    position: relative; /* Allows the nav-right to be positioned independently */
+}
+
+/* Center Navigation Links */
+.nav-center {
+    display: flex;
+    gap: 15px; /* Add spacing between buttons */
+}
+
+/* Right Navigation Links */
+.nav-right {
+    position: absolute;
+    right: 20px; /* Align Profile button to the right corner */
+    top: 50%;
+    transform: translateY(-50%); /* Center align vertically with the nav-center */
+}
+
+/* General Button Styling */
+.nav-btn {
+    color: white;
+    font-size: 20px;
+    text-decoration: none;
+    padding: 8px 18px;
+    border-radius: 5px;
+    background-color: #3ac3fe; /* Base button color */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Hover Effects for Buttons */
+.nav-btn:hover {
+    background-color: #005f87; /* Darker blue on hover */
+    transform: translateY(-2px); /* Lift effect */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+        /* Responsive Design for Small Screens */
+        /* Main Content */
+        main {
+            flex-grow: 1;
+            /* This ensures that the main content area takes up available space */
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: #005f87;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            width: 100%;
+            position: relative;
+            /* Relative positioning to prevent overlap with other content */
+            bottom: 0;
+        }
+
+        footer p {
+            color: white;
+            margin: 0;
+            font-size: 20px;
+        }
+
+        /* Responsive Design for Small Screens */
+        @media screen and (max-width: 768px) {
+    nav {
+        flex-direction: column; /* Stack links vertically */
+        align-items: center; /* Center-align links for small screens */
+    }
+
+    .nav-right {
+        position: static; /* Stack below nav-center */
+        transform: none;
+        margin-top: 10px;
+    }
+
+    .nav-btn {
+        font-size: 16px;
+        padding: 6px 12px;
+    }
+}
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="container">
+            <h1>Airline Management</h1>
+            <nav>
+                <div class="nav-center">
+                    <a href="{% url 'index' %}" class="nav-btn">Home</a>
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'logout' %}" class="nav-btn">Logout</a>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="nav-btn">Login</a>
+                        <a href="{% url 'signup' %}" class="nav-btn">Sign Up</a>
+                    {% endif %}
+                </div>
+                {% if user.is_authenticated %}
+                <div class="nav-right">
+                    <a href="{% url 'profile' %}" class="nav-btn">Profile</a>
+                </div>
+                {% endif %}
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Wonderkid Airlines</p>
+    </footer>
+
+</body>
+
+</html>

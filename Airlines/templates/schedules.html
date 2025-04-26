@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Schedules</h2>
+    <a href="{% url 'add_schedule' %}" class="btn primary-btn">Add Schedule</a>
+    
+    <!-- Schedules Table -->
+    <table>
+        <thead>
+            <tr>
+                <th>Flight</th>
+                <th>Departure Time</th>
+                <th>Arrival Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for schedule in schedules %}
+            <tr>
+                <td>{{ schedule.flight }}</td>
+                <td>{{ schedule.departure_time }}</td>
+                <td>{{ schedule.arrival_time }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+<style>
+    /* General Heading Styling */
+    h2 {
+        text-align: center;
+        color: #005f87;
+        font-size: 28px;
+        margin-bottom: 20px;
+        font-weight: bold;
+    }
+
+    /* Table Styling */
+    table {
+        width: 90%;
+        margin: 20px auto;
+        border-collapse: collapse;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    table th, table td {
+        padding: 12px;
+        text-align: center;
+        font-size: 16px;
+        border: 1px solid #ddd;
+    }
+
+    table th {
+        background-color: #005f87; /* Airline blue */
+        color: white;
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 18px;
+    }
+
+    table tbody tr:nth-child(even) {
+        background-color: #f9f9f9; /* Light gray alternating rows */
+    }
+
+    table tbody tr:hover {
+        background-color: #f2f2f2; /* Hover effect */
+        transition: background-color 0.2s ease-in-out;
+    }
+
+    /* Buttons Styling */
+    .btn {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #005f87;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 20px;
+        font-weight: 500;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .btn:hover {
+        background-color: #003f5f;
+        transform: scale(1.05);
+    }
+
+    /* Primary Button for Adding Schedule */
+    .primary-btn {
+        display: block;
+            width: fit-content;
+            margin: 0 auto 20px;
+            background-color: #005f87;
+            font-size: 16px;
+            font-weight: bold;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .primary-btn:hover {
+        background-color: #005f87;
+    }
+
+    /* Edit Button Styling */
+    .btn-edit {
+        background-color: #4caf50;
+    }
+
+    .btn-edit:hover {
+        background-color: #388e3c;
+    }
+
+    /* Delete Button Styling */
+    .btn-delete {
+        background-color: #f44336;
+    }
+
+    .btn-delete:hover {
+        background-color: #d32f2f;
+    }
+
+    /* Responsive Design */
+    @media screen and (max-width: 768px) {
+        table {
+            font-size: 14px;
+            width: 100%;
+        }
+
+        table th, table td {
+            font-size: 12px;
+            padding: 10px;
+        }
+
+        .btn {
+            font-size: 12px;
+            padding: 8px 15px;
+        }
+
+        .primary-btn {
+            font-size: 14px;
+            padding: 12px 25px;
+        }
+    }
+</style>
+{% endblock %}

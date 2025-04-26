@@ -1,0 +1,569 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Airline Management Dashboard</h2>
+
+<div class="dashboard-container">
+    <!-- Sidebar with Tabs -->
+    <div class="sidebar-tabs">
+        <ul>
+            <li class="tab" onclick="showTab('flights')">Flights</li>
+            <li class="tab" onclick="showTab('bookings')">Bookings</li>
+            <li class="tab" onclick="showTab('aircrafts')">Aircrafts</li>
+            <li class="tab" onclick="showTab('airports')">Airports</li>
+            <li class="tab" onclick="showTab('passengers')">Passengers</li>
+            <li class="tab" onclick="showTab('employees')">Employees</li>
+            <li class="tab" onclick="showTab('payments')">Payments</li>
+            <li class="tab" onclick="showTab('flightcrews')">Flight Crews</li>
+            <li class="tab" onclick="showTab('routes')">Routes</li>
+            <li class="tab" onclick="showTab('schedules')">Schedules</li>
+            <li class="tab" onclick="showTab('tickets')">Tickets</li>
+        </ul>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="dashboard-content">
+        <!-- Flights Tab -->
+        <div id="flights" class="tab-content">
+            <h3>Flights</h3>
+            <table class="dashboard-table">
+                <thead>
+                    <tr>
+                        <th>Flight Number</th>
+                        <th>Departure Airport</th>
+                        <th>Arrival Airport</th>
+                        <th>Departure Time</th>
+                        <th>Arrival Time</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for flight in flights %}
+                    <tr>
+                        <td>{{ flight.flight_number }}</td>
+                        <td>{{ flight.departure_airport.name }}</td>
+                        <td>{{ flight.arrival_airport.name }}</td>
+                        <td>{{ flight.departure_time }}</td>
+                        <td>{{ flight.arrival_time }}</td>
+                        <td>
+                            <a href="{% url 'edit_flight' flight.id %}" class="btn btn-edit">Update</a>
+                            <a href="{% url 'delete_flight' flight.id %}" class="btn btn-delete"
+                                onclick="return confirm('Are you sure you want to delete this flight?')">Cancel</a>
+                            <a href="{% url 'add_flight' %}" class="btn primary-btn">Add</a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5">No flights available.</td>
+                        <td>
+                            <a href="{% url 'add_flight' %}" class="btn primary-btn">Add</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Bookings Tab -->
+        <div id="bookings" class="tab-content" style="display: none;">
+            <h3>Bookings</h3>
+            <table class="dashboard-table">
+                <thead>
+                    <tr>
+                        <th>Passenger</th>
+                        <th>Flight</th>
+                        <th>Booking Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for booking in bookings %}
+                    <tr>
+                        <td>{{ booking.passenger.first_name }} {{ booking.passenger.last_name }}</td>
+                        <td>{{ booking.flight.flight_number }}</td>
+                        <td>{{ booking.booking_date }}</td>
+                        <td>
+                            <a href="{% url 'edit_booking' booking.id %}" class="btn btn-edit">Update</a>
+                            <a href="{% url 'delete_booking' booking.id %}" class="btn btn-delete"
+                                onclick="return confirm('Are you sure you want to delete this booking?')">Cancel</a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="3">No bookings available.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Aircrafts Tab -->
+        <div id="aircrafts" class="tab-content" style="display: none;">
+            <h3>Aircrafts</h3>
+            <table class="dashboard-table">
+                <thead>
+                    <tr>
+                        <th>Model</th>
+                        <th>Capacity</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for aircraft in aircrafts %}
+                    <tr>
+                        <td>{{ aircraft.model }}</td>
+                        <td>{{ aircraft.capacity }}</td>
+                        <td>
+                            <a href="{% url 'edit_aircraft' aircraft.id %}" class="btn btn-edit">Update</a>
+                            <a href="{% url 'delete_aircraft' aircraft.id %}" class="btn btn-delete"
+                                onclick="return confirm('Are you sure you want to delete this aircraft?')">Cancel</a>
+                            <a href="{% url 'add_aircraft' %}" class="btn primary-btn">Add</a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="2">No aircrafts available.</td>
+                        <td>
+                            <a href="{% url 'add_aircraft' %}" class="btn primary-btn">Add</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <!-- Airports Tab -->
+        <div id="airports" class="tab-content" style="display: none;">
+            <h3>Airports</h3>
+            <table class="dashboard-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Location</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for airport in airports %}
+                    <tr>
+                        <td>{{ airport.name }}</td>
+                        <td>{{ airport.location }}</td>
+                        <td>
+                            <a href="{% url 'edit_airport' airport.id %}" class="btn btn-edit">Update</a>
+                            <a href="{% url 'delete_airport' airport.id %}" class="btn btn-delete"
+                                onclick="return confirm('Are you sure you want to delete this aircraft?')">Cancel</a>
+                            <a href="{% url 'add_airport' %}" class="btn primary-btn">Add</a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="3">No airports available.</td>
+                        <td>
+                            <a href="{% url 'add_airport' %}" class="btn primary-btn">Add</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Passengers Tab -->
+        <div id="passengers" class="tab-content" style="display: none;">
+            <h3>Passengers</h3>
+            <table class="dashboard-table">
+                <thead>
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Passport Number</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for passenger in passengers %}
+                    <tr>
+                        <td>{{ passenger.first_name }}</td>
+                        <td>{{ passenger.last_name }}</td>
+                        <td>{{ passenger.passport_number }}</td>
+                        <td>
+                            <a href="{% url 'edit_passenger' passenger.id %}" class="btn btn-edit">Update</a>
+                            <a href="{% url 'delete_passenger' passenger.id %}" class="btn btn-delete"
+                                onclick="return confirm('Are you sure you want to delete this passenger?')">Cancel</a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="3">No passengers available.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Employees Tab -->
+        <div id="employees" class="tab-content" style="display: none;">
+            <h3>Employees</h3>
+            <table class="dashboard-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Position</th>
+                        <th>Salary</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for employee in employees %}
+                    <tr>
+                        <td>{{ employee.name }}</td>
+                        <td>{{ employee.position }}</td>
+                        <td>${{ employee.salary }}</td>
+                        <td>
+                            <a href="{% url 'edit_employee' employee.id %}" class="btn btn-edit">Update</a>
+                            <a href="{% url 'delete_employee' employee.id %}" class="btn btn-delete"
+                                onclick="return confirm('Are you sure you want to delete this employee?')">Cancel</a>
+                            <a href="{% url 'add_employee' %}" class="btn primary-btn">Add</a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="3">No employees available.</td>
+                        <td>
+                            <a href="{% url 'add_employee' %}" class="btn primary-btn">Add</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Payments Tab -->
+        <div id="payments" class="tab-content" style="display: none;">
+            <h3>Payments</h3>
+            <table class="dashboard-table">
+                <thead>
+                    <tr>
+                        <th>Ticket ID</th>
+                        <th>Amount</th>
+                        <th>Payment Date</th>
+                        <th>Payment Method</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for payment in payments %}
+                    <tr>
+                        <td>{{ payment.ticket.id }}</td>
+                        <td>${{ payment.amount }}</td>
+                        <td>{{ payment.payment_date }}</td>
+                        <td>{{ payment.payment_method }}</td>
+                        <td>
+                            <a href="{% url 'edit_payment' payment.id %}" class="btn btn-edit">Update</a>
+                            <a href="{% url 'delete_payment' payment.id %}" class="btn btn-delete"
+                                onclick="return confirm('Are you sure you want to delete this payment?')">Cancel</a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4">No payments available.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Flight Crews Tab -->
+        <div id="flightcrews" class="tab-content" style="display: none;">
+            <h3>Flight Crews</h3>
+            <table class="dashboard-table">
+                <thead>
+                    <tr>
+                        <th>Flight</th>
+                        <th>Employee</th>
+                        <th>Role</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for flight_crew in flightcrews %}
+                    <tr>
+                        <td>{{ flight_crew.flight.flight_number }}</td>
+                        <td>{{ flight_crew.employee.name }}</td>
+                        <td>{{ flight_crew.role }}</td>
+                        <td>
+                            <a href="{% url 'edit_flightcrew' flight_crew.id %}" class="btn btn-edit">Update</a>
+                            <a href="{% url 'delete_flightcrew' flight_crew.id %}" class="btn btn-delete"
+                                onclick="return confirm('Are you sure you want to delete this flight crew member?')">Cancel</a>
+                            <a href="{% url 'add_flightcrew' %}" class="btn primary-btn">Add</a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="3">No flight crews available.</td>
+                        <td>
+                            <a href="{% url 'add_flightcrew' %}" class="btn primary-btn">Add</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Routes Tab -->
+        <div id="routes" class="tab-content" style="display: none;">
+            <h3>Routes</h3>
+            <table class="dashboard-table">
+                <thead>
+                    <tr>
+                        <th>Departure Airport</th>
+                        <th>Arrival Airport</th>
+                        <th>Distance (km)</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for route in routes %}
+                    <tr>
+                        <td>{{ route.departure_airport.name }}</td>
+                        <td>{{ route.arrival_airport.name }}</td>
+                        <td>{{ route.distance }}</td>
+                        <td>
+                            <a href="{% url 'edit_route' route.id %}" class="btn btn-edit">Update</a>
+                            <a href="{% url 'delete_route' route.id %}" class="btn btn-delete"
+                                onclick="return confirm('Are you sure you want to delete this route?')">Cancel</a>
+                            <a href="{% url 'add_route' %}" class="btn primary-btn">Add</a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="3">No routes available.</td>
+                        <td>
+                            <a href="{% url 'add_route' %}" class="btn primary-btn">Add</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Schedules Tab -->
+        <div id="schedules" class="tab-content" style="display: none;">
+            <h3>Schedules</h3>
+            <table class="dashboard-table">
+                <thead>
+                    <tr>
+                        <th>Flight</th>
+                        <th>Departure Time</th>
+                        <th>Arrival Time</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for schedule in schedules %}
+                    <tr>
+                        <td>{{ schedule.flight.flight_number }}</td>
+                        <td>{{ schedule.departure_time }}</td>
+                        <td>{{ schedule.arrival_time }}</td>
+                        <td>
+                            <a href="{% url 'edit_schedule' schedule.id %}" class="btn btn-edit">Update</a>
+                            <a href="{% url 'delete_schedule' schedule.id %}" class="btn btn-delete"
+                                onclick="return confirm('Are you sure you want to delete this schedule?')">Cancel</a>
+                            <a href="{% url 'add_schedule' %}" class="btn primary-btn">Add</a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="3">No schedules available.</td>
+                        <td>
+                            <a href="{% url 'add_schedule' %}" class="btn primary-btn">Add</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Tickets Tab -->
+        <div id="tickets" class="tab-content" style="display: none;">
+            <h3>Tickets</h3>
+            <table class="dashboard-table">
+                <thead>
+                    <tr>
+                        <th>Ticket ID</th>
+                        <th>Flight</th>
+                        <th>Seat Number</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ticket in tickets %}
+                    <tr>
+                        <td>{{ ticket.id }}</td>
+                        <td>{{ ticket.flight.flight_number }}</td>
+                        <td>{{ ticket.seat_number }}</td>
+                        <td>
+                            <a href="{% url 'edit_ticket' ticket.id %}" class="btn btn-edit">Update</a>
+                            <a href="{% url 'delete_ticket' ticket.id %}" class="btn btn-delete"
+                                onclick="return confirm('Are you sure you want to delete this ticket?')">Cancel</a>
+                            <a href="{% url 'add_ticket' %}" class="btn primary-btn">Add</a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4">No tickets available.</td>
+                        <td>
+                            <a href="{% url 'add_ticket' %}" class="btn primary-btn">Add</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Function to toggle between tabs
+    function showTab(tabName) {
+        const contents = document.querySelectorAll('.tab-content');
+        contents.forEach(content => content.style.display = 'none');
+
+        const selectedContent = document.getElementById(tabName);
+        selectedContent.style.display = 'block';
+
+        const tabs = document.querySelectorAll('.tab');
+        tabs.forEach(tab => tab.classList.remove('active'));
+        document.querySelector(`.tab[onclick="showTab('${tabName}')"]`).classList.add('active');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => showTab('flights'));
+</script>
+
+<style>
+    h2 {
+        text-align: center;
+    }
+
+    .dashboard-container {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+    }
+
+    .sidebar-tabs {
+        width: 20%;
+        background-color: #f9f9f9;
+        border-right: 1px solid #ddd;
+    }
+
+    .sidebar-tabs ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .sidebar-tabs .tab {
+        padding: 10px;
+        cursor: pointer;
+        text-align: center;
+        background: #f4f4f4;
+        margin: 5px;
+        border-radius: 5px;
+    }
+
+    .sidebar-tabs .tab.active,
+    .sidebar-tabs .tab:hover {
+        background: #005f87;
+        color: #fff;
+    }
+
+    .dashboard-content {
+        width: 75%;
+    }
+
+    .dashboard-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 10px 0;
+    }
+
+    .dashboard-table th,
+    .dashboard-table td {
+        padding: 10px;
+        border: 1px solid #ddd;
+        text-align: left;
+    }
+
+    .dashboard-table th {
+        background-color: #005f87;
+        color: #fff;
+    }
+
+    .dashboard-table tbody tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    /* Update Button Styling */
+    .btn-edit {
+        display: inline-block;
+        padding: 8px 16px;
+        background-color: #007bff;
+        /* Blue color */
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+        text-align: center;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-edit:hover {
+        background-color: #0056b3;
+        /* Darker blue for hover */
+    }
+
+    /* Cancel Button Styling */
+    .btn-delete {
+        display: inline-block;
+        padding: 8px 16px;
+        background-color: #dc3545;
+        /* Red color */
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+        text-align: center;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-delete:hover {
+        background-color: #a71d2a;
+        /* Darker red for hover */
+    }
+
+    /* Add Button Styling */
+    .primary-btn {
+        display: inline-block;
+        padding: 8px 16px;
+        background-color: #28a745;
+        /* Green color */
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+        text-align: center;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .primary-btn:hover {
+        background-color: #218838;
+        /* Darker green for hover */
+        transform: scale(1.05);
+        /* Slightly enlarge on hover */
+    }
+
+    .primary-btn:active {
+        background-color: #1e7e34;
+        /* Even darker green for active state */
+        transform: scale(0.95);
+        /* Slightly shrink when clicked */
+    }
+</style>
+
+</style>
+{% endblock %}
